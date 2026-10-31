@@ -1,0 +1,71 @@
+{
+  "name": "ResearchQuestion",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "parsed_focus": {
+      "type": "string"
+    },
+    "parsed_methods": {
+      "type": "string"
+    },
+    "parsed_metrics": {
+      "type": "string"
+    },
+    "parsed_conditions": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "screening",
+        "extracting",
+        "ready",
+        "failed"
+      ],
+      "default": "created"
+    }
+  },
+  "required": [
+    "text"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

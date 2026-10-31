@@ -1,0 +1,82 @@
+{
+  "name": "OntologyConcept",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "Method",
+        "Equipment",
+        "Metric",
+        "Condition",
+        "BuildingType",
+        "Concept"
+      ],
+      "default": "Concept"
+    },
+    "definition": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "proposed"
+      ],
+      "default": "approved"
+    },
+    "origin": {
+      "type": "string",
+      "enum": [
+        "seed",
+        "agent-proposed"
+      ],
+      "default": "seed"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

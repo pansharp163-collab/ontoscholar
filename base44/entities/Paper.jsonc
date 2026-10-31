@@ -1,0 +1,75 @@
+{
+  "name": "Paper",
+  "type": "object",
+  "properties": {
+    "question_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "venue": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "included",
+        "excluded"
+      ],
+      "default": "excluded"
+    },
+    "decision_reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "question_id",
+    "title"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
